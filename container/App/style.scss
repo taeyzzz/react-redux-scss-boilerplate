@@ -1,0 +1,51 @@
+@font-face {
+  font-family: Comfortaa;
+  src: url("/fonts/COMFORTAA-REGULAR.TTF");
+}
+
+body{
+  margin: 0;
+  font-family: Aria;
+}
+
+.container{
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.center{
+  justify-content: center;
+  align-items: center;
+}
+
+a{
+  cursor: pointer;
+}
+
+.flex{
+  display: flex;
+}
+
+.flex-grow-1{
+  flex-grow: 1;
+}
+
+.flex-row{
+  flex-direction: row;
+}
+
+.flex-column{
+  flex-direction: column;
+}
+
+.width-100{
+  width: 100%;
+}
+
+.space-between{
+  justify-content: space-between;
+}
+
+.space-around{
+  justify-content: space-around;
+}
