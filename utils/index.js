@@ -71,15 +71,13 @@ export function call(url, method, data) {
   const {
     hostname, protocol
   } = window.location
-  const serverUrl = `${protocol}//${hostname}:8081${url}`
+  const serverUrl = `${protocol}//${hostname}:5555${url}`
   return fetch(serverUrl, {
     method: method,
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Credentials': true,
     },
-    credentials: 'include',
     body: JSON.stringify(data)
   })
     .then(parseJSON)
