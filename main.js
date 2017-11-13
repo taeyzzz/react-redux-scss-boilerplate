@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, Link, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 
+import { AppContainer } from 'react-hot-loader'
+
 import routes from './routes'
 
 import configureStore from './store/configureStore'
@@ -31,12 +33,35 @@ const handUpdatePath = () =>{
   }
 }
 
-render(
-  <Provider store={store}>
-    <div>
-      <Router history={history} children={routes} onUpdate={handUpdatePath}/>
-      <DevTools />
-    </div>
-  </Provider>,
-  document.getElementById('app')
-);
+const renderDOM = Component => {
+  if(process.env.NODE_ENV === 'production'){
+    render(
+      <div>
+        <Router history={history} children={routes} onUpdate={handUpdatePath}/>
+      </div>,
+      document.getElementById('app')
+    );
+  }
+  else{
+    render(
+      <AppContainer>
+        <Provider store={store}>
+          <div>
+            <Router history={history} children={routes} onUpdate={handUpdatePath}/>
+            <DevTools />
+          </div>
+        </Provider>
+      </AppContainer>,
+      document.getElementById('app')
+    );
+  }
+}
+
+renderDOM()
+
+if (module.hot) {
+  module.hot.accept('./container/App', () => {
+    console.log('replacement');
+    renderDOM()
+  })
+ }

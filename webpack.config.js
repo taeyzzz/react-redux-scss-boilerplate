@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var HtmlwebpackPlugin = require('html-webpack-plugin');
 var ROOT_PATH = path.resolve(__dirname);
+var developEnv = require('./env/develop.js')
 
 module.exports={
   entry:'./main.js',
@@ -51,6 +52,12 @@ module.exports={
       template: path.resolve(ROOT_PATH, 'index.html'),
       inject: 'body',
       // favicon: path.resolve(ROOT_PATH, './image/Fetila logo png.png'),
-    })
+    }),
+    new webpack.DefinePlugin({
+      "process.env": {
+        NODE_ENV: JSON.stringify('develop'),
+        SERVER_URL: JSON.stringify(developEnv.SERVER_URL)
+      }
+    }),
   ]
 }

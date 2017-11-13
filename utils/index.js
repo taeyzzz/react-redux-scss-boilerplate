@@ -1,14 +1,6 @@
 import 'whatwg-fetch'
 import React from 'react'
-
-const SESSION_TIMEOUT_MINUTES = process.env.SESSION_TIMEOUT_MINUTES;
-
-export function createConstants(...constants) {
-  return constants.reduce((acc, constant) => {
-    acc[constant] = constant
-    return acc
-  }, {})
-}
+const SERVER_URL = process.env.SERVER_URL
 
 export function createReducer(initialState, reducerMap) {
   return (state = initialState, action) => {
@@ -29,49 +21,11 @@ export function download(url, path) {
   a.click()
 }
 
-export function exportnb(url) {
-  const openSaveDialog = function (data) {
-    let a = document.createElement("a")
-    document.body.appendChild(a)
-    a.style = "display: none"
-    let blob = new Blob([JSON.stringify(data.content)], {
-      encoding: "utf-8",
-      type: "application/json"
-    })
-    let url = window.URL.createObjectURL(blob)
-    a.href = url
-    a.download = data.notebookName
-    a.click()
-    window.URL.revokeObjectURL(url)
-  }
-
-  const {
-    hostname, protocol
-  } = window.location
-  const serverUrl = `${protocol}//${hostname}:8081${url}`
-  return fetch(serverUrl, {
-      method: 'get',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Credentials': true,
-      },
-      credentials: 'include',
-    }).then(parseJSON)
-    .then(function (result) {
-      openSaveDialog(result.body)
-      return Promise.resolve('downloading')
-    })
-    .catch((err) => {
-      return Promise.reject(err)
-    })
-}
-
 export function call(url, method, data) {
   const {
     hostname, protocol
   } = window.location
-  const serverUrl = `${protocol}//${hostname}:5555${url}`
+  const serverUrl = `${SERVER_URL}${url}`
   return fetch(serverUrl, {
     method: method,
     headers: {
@@ -108,15 +62,6 @@ export function put(url, data) {
 
 export function del(url, data) {
   return call(url, 'delete', data)
-}
-
-export function callMultipart(url, body) {
-  return fetch(url, {
-      method: 'post',
-      body: body
-    })
-    .then(checkHttpStatus)
-    .then(parseJSON)
 }
 
 export function checkHttpStatus(response) {
@@ -157,13 +102,9 @@ export const storage = {
   }
 }
 
-export function makeFolderPath(name, folder) {
-  return (((folder || '') + name) + '__').replace(/__/gi, '/')
-}
-
 function createCookie(){
   var d = new Date();
-  d.setTime(d.getTime() + (SESSION_TIMEOUT_MINUTES*60*1000));
+  d.setTime(d.getTime() + (60*60*1000));
   var expires = "expires=" + d.toGMTString();
   document.cookie = "timeout" + "=" + "10" + ";" + expires + ";path=/";
 }

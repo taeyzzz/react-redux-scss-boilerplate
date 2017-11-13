@@ -31,7 +31,7 @@ class App extends React.Component{
 
     return(
       <div>
-        <div>name: {this.state.name}</div>
+        <div>bbbb: {this.state.name}</div>
         <div>friend: {this.state.friend}</div>
         <button onClick={() => this.getName()}>get Result</button>
       </div>

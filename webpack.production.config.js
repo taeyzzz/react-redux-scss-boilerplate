@@ -2,6 +2,7 @@ var webpack = require('webpack')
 var path = require('path')
 var HtmlwebpackPlugin = require('html-webpack-plugin')
 var ROOT_PATH = path.resolve(__dirname)
+var productionEnv = require('./env/production.js')
 
 module.exports={
   devtool: 'cheap-module-source-map',
@@ -51,6 +52,7 @@ module.exports={
     new webpack.DefinePlugin({
       "process.env": {
         NODE_ENV: JSON.stringify('production'),
+        SERVER_URL: JSON.stringify(productionEnv.SERVER_URL)
       }
     }),
     new webpack.optimize.UglifyJsPlugin({
