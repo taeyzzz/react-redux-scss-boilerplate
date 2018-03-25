@@ -5,6 +5,7 @@ var ROOT_PATH = path.resolve(__dirname);
 var developEnv = require('./env/develop.js')
 
 module.exports={
+  devtool: 'inline-source-map',
   entry:'./main.js',
   output:{
     path:'./',
