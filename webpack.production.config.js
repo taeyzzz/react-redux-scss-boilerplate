@@ -3,6 +3,7 @@ var path = require('path')
 var HtmlwebpackPlugin = require('html-webpack-plugin')
 var ROOT_PATH = path.resolve(__dirname)
 var productionEnv = require('./env/production.js')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports={
   devtool: 'cheap-module-source-map',
@@ -17,18 +18,18 @@ module.exports={
     filename: 'bundle.min.js'
   },
   module:{
-    loaders:[
+    rules:[
       {
         test:/\.js$/,
         exclude:/node_modules/,
-        loader:'babel',
+        loader:'babel-loader',
         query:{
           presets:['es2015','react','stage-1']
         }
       },
       {
         test: /\.scss|css$/,
-        loaders: [ 'style', 'css', 'sass']
+        loaders: [ 'style-loader', 'css-loader', 'sass-loader']
       },
       {
         test: /\.(png|jpg|gif)$/,
@@ -36,18 +37,31 @@ module.exports={
       },
       {
         test: /\.(ttf|eot|svg)(\?v=[0-9].[0-9].[0-9])?$/,
-        loader: 'file-loader?name=[name].[ext]'
+        loader: 'file-loader?name=fonts/[name].[ext]'
       },
       { test: /\.json$/,
         loader: 'json'
       },
-    ]
+    ],
   },
+  mode: 'production',
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        sourceMap: true,
+        uglifyOptions: {
+          compress: {
+            inline: false,
+          },
+        },
+      }),
+    ],
+  },
+
   plugins: [
     new HtmlwebpackPlugin({
       template: path.resolve(ROOT_PATH, 'index.html'),
       inject: 'body',
-      favicon: path.resolve(ROOT_PATH, './image/Fetila logo png.png'),
     }),
     new webpack.DefinePlugin({
       "process.env": {
@@ -55,11 +69,5 @@ module.exports={
         SERVER_URL: JSON.stringify(productionEnv.SERVER_URL)
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      minimize: true,
-      compress: {
-        warnings: false
-      }
-    })
   ]
 }

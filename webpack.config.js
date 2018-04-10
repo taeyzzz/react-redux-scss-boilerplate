@@ -22,18 +22,18 @@ module.exports={
     historyApiFallback: true
   },
   module:{
-    loaders:[
+    rules:[
       {
         test:/\.js$/,
         exclude:/node_modules/,
-        loader:'babel',
+        loader:'babel-loader',
         query:{
           presets:['es2015','react','stage-1']
         }
       },
       {
         test: /\.scss|css$/,
-        loaders: [ 'style', 'css', 'sass']
+        loaders: [ 'style-loader', 'css-loader', 'sass-loader']
       },
       {
         test: /\.(png|jpg|gif)$/,
@@ -46,17 +46,17 @@ module.exports={
       { test: /\.json$/,
         loader: 'json'
       },
-    ]
+    ],
   },
+  mode: 'development',
   plugins: [
     new HtmlwebpackPlugin({
       template: path.resolve(ROOT_PATH, 'index.html'),
       inject: 'body',
-      // favicon: path.resolve(ROOT_PATH, './image/Fetila logo png.png'),
     }),
     new webpack.DefinePlugin({
       "process.env": {
-        NODE_ENV: JSON.stringify('develop'),
+        NODE_ENV: JSON.stringify(developEnv.NODE_ENV),
         SERVER_URL: JSON.stringify(developEnv.SERVER_URL)
       }
     }),
