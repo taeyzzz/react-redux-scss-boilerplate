@@ -1,10 +1,8 @@
-how to use
+# Branch react-boilerplate
 
-1. npm i
-2.change config
-3.npm start
+- react redux scss boilerplate with webpack 3
 
+# how to use
 
-todo
-
-1.add hot reload
+- yarn
+- npm start
