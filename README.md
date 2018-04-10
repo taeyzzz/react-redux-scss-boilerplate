@@ -1,10 +1,8 @@
-how to use
+# Branch master
 
-1. npm i
-2.change config
-3.npm start
+- test implement chat App
+- try to apply hot reload
 
+## for boilerplate
 
-todo
-
-1.add hot reload
+- use react-template branch
