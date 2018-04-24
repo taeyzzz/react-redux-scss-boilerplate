@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import { updateActiveUserSocket } from './chat'
+import { updateActiveUserSocket, updateChatList } from './chat'
 
 export const connectSocket = () => {
   return dispatch => {
@@ -9,6 +9,10 @@ export const connectSocket = () => {
     })
     socket.on('new-active-user', (data) => {
       dispatch(updateActiveUserSocket(data))
+    })
+
+    socket.on('update-chat-list', (data) => {
+      dispatch(updateChatList(data))
     })
   }
 }

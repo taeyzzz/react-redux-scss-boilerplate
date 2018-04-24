@@ -3,11 +3,13 @@ import {
   LOGIN_CHAT_SUCCESS,
   LOGIN_CHAT_FAILURE,
   LOGIN_CHAT_IDLE,
-  UPDATE_ACTIVE_USERS
+  UPDATE_ACTIVE_USERS,
+  UPDATE_CHAT_LIST
 } from '../actions/chat'
 
 const initialState = {
-  activeUser: []
+  activeUser: [],
+  chatHistory: []
 }
 
 const chat = (state = initialState, action) => {
@@ -25,6 +27,16 @@ const chat = (state = initialState, action) => {
       })
       return Object.assign({}, state, {
         activeUser: tempActiveUsers
+      })
+    }
+    case UPDATE_CHAT_LIST: {
+      const tempChatHistory = state.chatHistory
+      tempChatHistory.push({
+        userName: action.payload.userName,
+        text: action.payload.inCommingTxt
+      })
+      return Object.assign({}, state, {
+        chatHistory: tempChatHistory
       })
     }
     default:

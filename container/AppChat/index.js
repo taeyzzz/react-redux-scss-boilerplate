@@ -13,12 +13,7 @@ class AppChat extends React.Component{
     super(props)
     this.state={
       userList: [],
-      allHistoryChat: [
-        {
-          userName: 'hello',
-          text: 'hello world'
-        }
-      ],
+      allHistoryChat: [],
       inputText: '',
       userName: ''
     }
@@ -26,6 +21,13 @@ class AppChat extends React.Component{
 
   componentWillReceiveProps(nextProps) {
     this.updateActiveUser(nextProps.chat.activeUser)
+    this.updateHistoryChat(nextProps.chat.chatHistory)
+  }
+
+  updateHistoryChat(newArrHistory){
+    this.setState({
+      allHistoryChat: newArrHistory
+    })
   }
 
   updateActiveUser(listActiveUsers){
@@ -90,12 +92,17 @@ class AppChat extends React.Component{
   }
 
   sendMessage() {
-    alert(this.state.inputText)
+    this.props.sendMessage(this.state.inputText, this.state.userName)
     this.setState({
       inputText: ''
     })
   }
 
+  handleKeyPressed(e){
+    if(e.key === 'Enter'){
+      this.sendMessage()
+    }
+  }
 
   render(){
     return(
@@ -109,7 +116,12 @@ class AppChat extends React.Component{
           </div>
         </div>
         <div className="chat-input-container">
-          <input type="text" value={this.state.inputText} onChange={(e) => this.handleIputChanged(e.target.value)}/>
+          <input
+            type="text"
+            value={this.state.inputText}
+            onChange={(e) => this.handleIputChanged(e.target.value)}
+            onKeyPress={(e) => this.handleKeyPressed(e)}
+          />
           <button onClick={() => this.sendMessage()}>Send</button>
         </div>
       </div>
