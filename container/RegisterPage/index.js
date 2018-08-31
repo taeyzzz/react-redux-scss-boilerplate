@@ -7,10 +7,11 @@ export default class Application extends React.Component{
   }
 
   gotohomepage(){
-    BrowserHistory.push('/')
+    this.props.history.push('/')
   }
 
   render() {
+    console.log(this.props.match.params.token);
     return (
       <div>
         Register page

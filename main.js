@@ -2,7 +2,6 @@ import React from 'react';
 import { render } from 'react-dom'
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute, Link } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import BrowserHistory from './routes/history'
 
@@ -23,9 +22,7 @@ const DevTools = createDevTools(
     <LogMonitor theme="tomorrow" preserveScrollTop={false} />
   </DockMonitor>
 )
-let store = configureStore(window.__INITIAL_STATE__, BrowserHistory, DevTools)
-
-let history = syncHistoryWithStore(BrowserHistory, store)
+let store = configureStore(window.__INITIAL_STATE__, DevTools)
 
 const handUpdatePath = () =>{
   let routingState = store.getState().routing;
@@ -39,7 +36,7 @@ const renderDOM = Component => {
   if(process.env.NODE_ENV === 'production'){
     render(
       <Provider store={store}>
-        <Router history={history} children={routes} onUpdate={handUpdatePath}/>
+        {routes}
       </Provider>,
       document.getElementById('app')
     );
@@ -48,7 +45,7 @@ const renderDOM = Component => {
     render(
       <Provider store={store}>
         <div>
-          <Router history={history} children={routes} onUpdate={handUpdatePath}/>
+          {routes}
           <DevTools />
         </div>
       </Provider>,

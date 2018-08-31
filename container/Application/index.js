@@ -1,5 +1,4 @@
 import React from 'react'
-import BrowserHistory from '../../routes/history'
 
 export default class Application extends React.Component{
   constructor(props) {
@@ -7,7 +6,12 @@ export default class Application extends React.Component{
   }
 
   gotologin(){
-    BrowserHistory.push('/login')
+    console.log(this.props);
+    this.props.history.push('/login')
+  }
+
+  gotodashboard(){
+    this.props.history.push('/dashboard')
   }
 
   render() {
@@ -16,6 +20,9 @@ export default class Application extends React.Component{
         Homepage
         <button onClick={() => this.gotologin()}>
           login
+        </button>
+        <button onClick={() => this.gotodashboard()}>
+          Dashboard
         </button>
       </div>
     )
