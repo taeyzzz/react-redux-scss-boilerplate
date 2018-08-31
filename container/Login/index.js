@@ -6,16 +6,16 @@ export default class Application extends React.Component{
     super(props)
   }
 
-  gotologin(){
-    BrowserHistory.push('/login')
+  gotoregister(){
+    BrowserHistory.push('/register')
   }
 
   render() {
     return (
       <div>
-        Homepage
-        <button onClick={() => this.gotologin()}>
-          login
+        Login page
+        <button onClick={() => this.gotoregister()}>
+          register
         </button>
       </div>
     )

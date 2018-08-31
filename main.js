@@ -2,8 +2,9 @@ import React from 'react';
 import { render } from 'react-dom'
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute, Link, browserHistory } from 'react-router'
+import { Router, Route, IndexRoute, Link } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
+import BrowserHistory from './routes/history'
 
 
 import routes from './routes'
@@ -22,9 +23,9 @@ const DevTools = createDevTools(
     <LogMonitor theme="tomorrow" preserveScrollTop={false} />
   </DockMonitor>
 )
-let store = configureStore(window.__INITIAL_STATE__, browserHistory, DevTools)
+let store = configureStore(window.__INITIAL_STATE__, BrowserHistory, DevTools)
 
-let history = syncHistoryWithStore(browserHistory, store)
+let history = syncHistoryWithStore(BrowserHistory, store)
 
 const handUpdatePath = () =>{
   let routingState = store.getState().routing;
