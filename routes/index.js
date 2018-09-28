@@ -24,7 +24,6 @@ const Footer = () => {
 }
 
 const applicationRoute = ({ match }) => {
-  console.log(match.url);
   return (
     <div>
       <Route path={match.url} component={Header} />
