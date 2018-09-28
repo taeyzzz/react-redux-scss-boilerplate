@@ -9,8 +9,8 @@ export default class Application extends React.Component{
   render() {
     return (
       <div>
-        hello
-        <button onClick={() => browserHistory.push('/a')} >GO TO A</button>
+        CPage
+        <button onClick={() => browserHistory.push('/')} >HOME</button>
       </div>
     )
   }

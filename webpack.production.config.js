@@ -15,7 +15,8 @@ module.exports={
   output: {
     path: path.resolve(ROOT_PATH, 'build'),
     publicPath: '/',
-    filename: 'bundle.min.js'
+    filename: 'bundle.min.js',
+    chunkFilename: '[name].[chunkhash].chunk.js',
   },
   module:{
     rules:[
