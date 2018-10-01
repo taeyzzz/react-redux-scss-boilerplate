@@ -18,9 +18,12 @@ class Application extends React.Component{
     this.props.AnimalStore.addAnimal('animal');
   }
 
+  hanleGetList(){
+    this.props.BirdStore.getListBird();
+  }
+
   render() {
     const { BirdStore, AnimalStore } = this.props;
-    console.log(BirdStore, AnimalStore);
     return (
       <div>
         hello
@@ -29,6 +32,7 @@ class Application extends React.Component{
         <button onClick={() => this.handleAddBird()} >add bird</button>
         <button onClick={() => this.handleAddAnimal()} >add animal</button>
         {this.props.AnimalStore.animalCount}
+        <button onClick={() => this.hanleGetList()} >getList </button>
       </div>
     )
   }
