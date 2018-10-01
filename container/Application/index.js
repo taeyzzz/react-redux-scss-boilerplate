@@ -3,9 +3,9 @@ import { browserHistory } from 'react-router'
 import { inject, observer } from 'mobx-react';
 
 
-@inject('BirdStore', 'AnimalStore')
-@observer
-export default class Application extends React.Component{
+// @inject('BirdStore', 'AnimalStore')
+// @observer
+class Application extends React.Component{
   constructor(props) {
     super(props)
   }
@@ -33,3 +33,5 @@ export default class Application extends React.Component{
     )
   }
 }
+
+export default inject('BirdStore', 'AnimalStore')(observer(Application))
