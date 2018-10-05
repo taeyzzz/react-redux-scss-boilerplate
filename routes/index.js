@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { BrowserRouter as Router, Route, IndexRoute, Link, hashHistory } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Link, hashHistory } from 'react-router-dom'
 import * as AA from 'react-router-dom'
 import Application from '../container/Application'
 import LoginPage from '../container/Login'
@@ -16,6 +16,7 @@ const Header = () => {
 }
 
 const Footer = () => {
+  console.log('render');
   return (
     <div>
       Footer
@@ -28,7 +29,7 @@ const applicationRoute = ({ match }) => {
     <div>
       <Route path={match.url} component={Header} />
       <Route exact path={match.url} component={Application} />
-      <Route path={match.url} component={Footer} />
+      <Footer />
     </div>
   )
 }
@@ -38,7 +39,15 @@ const dashboardRoute = ({ match }) => {
     <div>
       <Route path={match.url} component={Header} />
       <Route exact path={match.url} component={Dashboard} />
-      <Route path={match.url} component={Footer} />
+      <Footer />
+    </div>
+  )
+}
+
+const NotFound = () => {
+  return (
+    <div>
+      not found
     </div>
   )
 }
@@ -46,11 +55,12 @@ const dashboardRoute = ({ match }) => {
 
 export default (
   <Router>
-    <div>
+    <Switch>
       <Route exact path="/" component={applicationRoute} />
       <Route path="/dashboard" component={dashboardRoute} />
       <Route path="/login" component={LoginPage} />
       <Route path="/register/:token" component={RegisterPage} />
-    </div>
+      <Route component={NotFound} />
+    </Switch>
   </Router>
 )

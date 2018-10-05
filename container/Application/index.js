@@ -23,7 +23,7 @@ export default class Application extends React.Component{
         </button>
         <button onClick={() => this.gotodashboard()}>
           Dashboard
-        </button>
+        </button>      
       </div>
     )
   }
