@@ -5,17 +5,11 @@ export default class Application extends React.Component{
     super(props)
   }
 
-  gotoregister(){
-    this.props.history.push('/register/taey')
-  }
-
   render() {
+    console.log(this.props);
     return (
       <div>
-        Login page
-        <button onClick={() => this.gotoregister()}>
-          register
-        </button>
+        Login
       </div>
     )
   }

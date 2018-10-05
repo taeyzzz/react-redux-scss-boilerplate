@@ -1,66 +1,65 @@
 import React from 'react'
+import { Router, BrowserRouter, Route, Switch, Link, hashHistory, Redirect } from 'react-router-dom'
 
-import { BrowserRouter as Router, Route, Switch, Link, hashHistory } from 'react-router-dom'
-import * as AA from 'react-router-dom'
-import Application from '../container/Application'
-import LoginPage from '../container/Login'
-import RegisterPage from '../container/RegisterPage'
-import Dashboard from '../container/Dashboard'
+import Loadable from 'react-loadable';
 
-const Header = () => {
+import browserHistory from './history'
+
+const Application = Loadable({
+  loader: () => import('../container/Application'),
+  loading: () => null,
+});
+
+const LoginPage = Loadable({
+  loader: () => import('../container/LoginPage'),
+  loading: () => null,
+});
+
+const RegisterPage = Loadable({
+  loader: () => import('../container/RegisterPage'),
+  loading: () => null,
+});
+
+const DashboardPage = Loadable({
+  loader: () => import('../container/DashboardPage'),
+  loading: () => null,
+});
+
+const Header = Loadable({
+  loader: () => import('../container/Header'),
+  loading: () => null,
+});
+
+const AppLayout = (props) => {
   return (
     <div>
-      Header
+      <Header {...props}/>
+      <Switch>
+        <Route exact path='/home' component={Application}/>
+        <Route path='/home/dashboard' component={DashboardPage} />
+      </Switch>
     </div>
   )
 }
 
-const Footer = () => {
-  console.log('render');
-  return (
-    <div>
-      Footer
-    </div>
-  )
+const Not = () => <h1>not foud</h1>
+
+const handleRouteChanged = (arg) => {
+  window.scrollTo(0, 0);
 }
 
-const applicationRoute = ({ match }) => {
-  return (
-    <div>
-      <Route path={match.url} component={Header} />
-      <Route exact path={match.url} component={Application} />
-      <Footer />
-    </div>
-  )
-}
-
-const dashboardRoute = ({ match }) => {
-  return (
-    <div>
-      <Route path={match.url} component={Header} />
-      <Route exact path={match.url} component={Dashboard} />
-      <Footer />
-    </div>
-  )
-}
-
-const NotFound = () => {
-  return (
-    <div>
-      not found
-    </div>
-  )
-}
-
+browserHistory.listen(arg => {
+  handleRouteChanged(arg)
+})
 
 export default (
-  <Router>
+  <Router history={browserHistory}>
     <Switch>
-      <Route exact path="/" component={applicationRoute} />
-      <Route path="/dashboard" component={dashboardRoute} />
+      <Route exact path="/" render={() => <Redirect to="/home"/>} />
+      <Route path='/home' component={AppLayout} />
       <Route path="/login" component={LoginPage} />
       <Route path="/register/:token" component={RegisterPage} />
-      <Route component={NotFound} />
+      <Route component={Not} />
     </Switch>
   </Router>
 )

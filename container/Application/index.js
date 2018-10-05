@@ -5,25 +5,11 @@ export default class Application extends React.Component{
     super(props)
   }
 
-  gotologin(){
-    console.log(this.props);
-    this.props.history.push('/login')
-  }
-
-  gotodashboard(){
-    this.props.history.push('/dashboard')
-  }
-
   render() {
+    console.log(this.props);
     return (
-      <div>
-        Homepage
-        <button onClick={() => this.gotologin()}>
-          login
-        </button>
-        <button onClick={() => this.gotodashboard()}>
-          Dashboard
-        </button>      
+      <div id="a">
+        Application
       </div>
     )
   }
