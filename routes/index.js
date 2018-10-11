@@ -20,8 +20,12 @@ const CPage = Loadable({
   loading: () => null,
 });
 
+const handUpdatePath = (arg) =>{
+  window.scrollTo(0, 0);
+}
+
 export default (
-  <Router history={browserHistory}>
+  <Router history={browserHistory} onUpdate={handUpdatePath}>
     <Route path="/" component={Application} />
     <Route path="/a" component={APage} />
     <Route path="/b" component={BPage} />
