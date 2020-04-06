@@ -6,3 +6,10 @@
 ## for boilerplate
 
 - use react-template branch
+
+# Branch
+- mobx
+- chat
+- react-router
+- template
+- socket.io
